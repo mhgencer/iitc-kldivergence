@@ -13,8 +13,16 @@ KLD is one of the statistical concepts used in IITC. Specifically, IITC uses KLD
 
 # References
 Amari, S. I. (2016). Information Geometry and Its Applications (Vol. 194). Springer.
+
+
 Griffith, V. (2014). A principled infotheoretic\phi-like measure. arXiv preprint arXiv:1401.0978.
+
+
 Oizumi, M., Albantakis, L., & Tononi, G. (2014). From the phenomenology to the mechanisms of consciousness: integrated information theory 3.0. PLoS computational biology, 10(5), e1003588.
+
+
 Tononi, G. (2008). Consciousness as integrated information: a provisional manifesto. The Biological Bulletin, 215(3), 216-242.
+
+
 Tononi, G., Boly, M., Massimini, M., & Koch, C. (2016). Integrated information theory: from consciousness to its physical substrate. Nature Reviews Neuroscience, 17(7), 450-461.
 
