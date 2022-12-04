@@ -1,3 +1,7 @@
+By MH Gencer
+
+Go to 'code.py' for the Python script (requires Python 3.9 or higher). See below for explanation. 
+
 # Integrated Information Theory of Consciousness
 
 
