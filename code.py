@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.widgets import Slider, Button
 from scipy import stats
-from scipy.integrate import quad
 from scipy.special import rel_entr
 
 # probability dist. function 1
