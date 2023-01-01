@@ -6,7 +6,7 @@ Go to 'code.py' above for the Python script (requires Python 3.9 or higher).
 Click [here](https://iitc-kldivergence.github.io/mathlet/) for a browser-based demo (Chart.js). See below for a short explanation. 
 
 
-![Figure_1](https://user-images.githubusercontent.com/97817068/205480104-cc36b21f-eeb7-42e5-87db-816342ee811b.png)
+![Figure_1](https://user-images.githubusercontent.com/97817068/210168377-48848c7a-69c1-463a-8f31-5d8f24899e60.png)
 
 
 ## Integrated Information Theory of Consciousness (IITC)
