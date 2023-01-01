@@ -3,7 +3,7 @@ By MH Gencer
 Go to 'code.py' above for the Python script (requires Python 3.9 or higher).
 
 
-Click [here](https://iitc-kldivergence.github.io/mathlet/) for the browser-based demo (Chart.js). See below for a short explanation. 
+Click [here](https://iitc-kldivergence.github.io/mathlet/) for a browser-based demo (Chart.js). See below for a short explanation. 
 
 
 ![Figure_1](https://user-images.githubusercontent.com/97817068/205480104-cc36b21f-eeb7-42e5-87db-816342ee811b.png)
