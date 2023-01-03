@@ -3,13 +3,13 @@ By MH Gencer
 Go to 'code.py' above for the Python script (requires Python 3.9 or higher).
 
 
-Click [here](https://iitc-kldivergence.github.io/mathlet/) for a browser-based demo (Chart.js). See below for a short explanation. 
+Click [here](https://iitc-kldivergence.github.io/mathlet/) for a browser-based demo. See below for a short explanation. 
 
 
 ![Figure_1](https://user-images.githubusercontent.com/97817068/210168473-e4d863bc-e177-41c4-85d8-c0cdb4a49a91.png)
 
 
-Left: Python script output (matplotlib). Right: Browser demo (Chart.js). The following applies to both.
+Left: Python script output (matplotlib). Right: Browser-based demo (Chart.js). The following applies to both.
 
 ## Integrated Information Theory of Consciousness (IITC)
 IITC is a relatively new theory of consciousness proposed by Giulio Tononi (2008, 2014, 2016). The theory's main goal is to establish the foundations for a mathematical framework with which we can answer the question of why we are conscious. In the framework IITC offers, consciousness results from highly integrated informational processes that can be specified by using a set of well-defined mathematical concepts. The hope is to open new avenues for both empirical and purely mathematical research on necessary and sufficient conditions for having conscious experience.
