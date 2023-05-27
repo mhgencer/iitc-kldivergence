@@ -1,44 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IITC KD Mathlet by MH Gencer</title>
-    <!-- Load Chart.js library -->
+    <title>IITC KD Mathlet</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-  <!-- Load Garamond from Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet">
-  <!-- Favicon -->
     <link rel="shortcut icon" href="https://user-images.githubusercontent.com/121713429/210285067-dc240824-33a1-4eeb-9956-b464a6e627e3.png" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="192x192" href="https://user-images.githubusercontent.com/121713429/210285067-dc240824-33a1-4eeb-9956-b464a6e627e3.png">
-  <!-- Styles for the sliders and the chart -->
     <style>
-      body {
-        background: linear-gradient(to right, black, #888888, #D3D3D3, #888888, black);
-        font-family: 'Marcellus SC';
-      }
+	    body {
+		    background: linear-gradient(to right, black, #888888, #D3D3D3, #888888, black);
+		    font-family: 'Marcellus SC';
+	    }
+	    
+	    .slider {
+		    -webkit-appearance: none;
+		    width: 25%;
+		    height: 20px;
+		    background: gray;
+		    outline: none;
+		    opacity: 0.5;
+		    -webkit-transition: .2s;
+		    transition: opacity .2s;
+	    }
+	    
+	    .slider:hover {
+		    opacity: 1;
+	    }
 
-  .slider {
-  -webkit-appearance: none;
-  width: 25%;
-  height: 20px;
-  background: gray;
-  outline: none;
-  opacity: 0.5;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.slider:hover {
-  opacity: 1;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background: black;
-  cursor: pointer;
-}
+	    .slider::-webkit-slider-thumb {
+		    -webkit-appearance: none;
+		    appearance: none;
+		    width: 20px;
+		    height: 20px;
+		    background: black;
+		    cursor: pointer;
+	    }
 
 .slider::-moz-range-thumb {
   width: 20px;
