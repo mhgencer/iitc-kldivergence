@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IITC KD Mathlet by MH Gencer</title>
+    <!-- Load Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <!-- Load Garamond from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet">
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="https://user-images.githubusercontent.com/121713429/210285067-dc240824-33a1-4eeb-9956-b464a6e627e3.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="192x192" href="https://user-images.githubusercontent.com/121713429/210285067-dc240824-33a1-4eeb-9956-b464a6e627e3.png">
+  <!-- Styles for the sliders and the chart -->
+    <style>
+      body {
+        background: linear-gradient(to right, black, #888888, #D3D3D3, #888888, black);
+        font-family: 'Marcellus SC';
+      }
+
+  .slider {
+  -webkit-appearance: none;
+  width: 25%;
+  height: 20px;
+  background: gray;
+  outline: none;
+  opacity: 0.5;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: black;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: black;
+  cursor: pointer;
+}
+
+a span:hover {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 26px;
+  transition: color: 0.25s; font-size 0.25s;
+  padding: 0 10px;
+}
+
+a span {
+  transition: color: 0.25s; font-size 0.25s;
+}
+
+}
+    </style>
+  </head>
+  <body>
+    <!-- Chart container -->
+    <canvas id="myChart" width="300" height="100"></canvas>
+
+    <!-- About -->
+    <a href="https://github.com/Movarquine/iitc-kldivergence" target="_blank"
+       style="text-decoration: none;">
+   <div style="justify-content: center; display: flex; color: black; font-weight: bold; font-size: 25px;">
+       <span>About & Explanation</span>
+   </div>
+    </a>
+    <div style="height: 5px; width: 100px;"></div>
+    <div style="justify-content: center; display: flex; font-size: 15px; color: #454545;">ADJUST THE DISTANCE WITH THE SLIDERS</div>
+    <div style="height: 5px; width: 100px;"></div>
+
+    <!-- Sliders to control mean and standard deviation for first distribution -->
+    <div style="justify-content: center; margin-right: 5px; display: flex; align-items: center;">
+      <span style="font-size: 25px; margin-right: 5px;">Dark μ:</span>
+      <input id="mean1Slider" type="range" min="-9" max="9" step="1" value="2" class="slider">
+      <span id="mean1Value" style="font-size: 20px; margin-left: 5px;">0</span>
+    </div>
+    <div style="justify-content: center; margin-right: 5px; display: flex; align-items: center;">
+      <span style="font-size: 25px; margin-right: 5px;">Dark σ:</span>
+      <input id="stddev1Slider" type="range" min="1" max="9" step="1" value="1" class="slider">
+      <span id="stddev1Value" style="font-size: 20px; margin-left: 5px;">1</span>
+    </div>
+
+    <!-- Sliders to control mean and standard deviation for second distribution -->
+    <div style="justify-content: center; margin-right: 5px; display: flex; align-items: center;">
+      <span style="font-size: 25px; margin-right: 5px;">Fair μ:</span>
+      <input id="mean2Slider" type="range" min="-9" max="9" step="1" value="-2" class="slider">
+      <span id="mean2Value" style="font-size: 20px; margin-left: 5px;">0</span>
+    </div>
+    <div style="justify-content: center; margin-right: 5px; display: flex; align-items: center;">
+      <span style="font-size: 25px; margin-right: 5px;">Fair σ:</span>
+      <input id="stddev2Slider" type="range" min="1" max="9" step="1" value="1" class="slider">
+      <span id="stddev2Value" style="font-size: 20px; margin-left: 5px;">1</span>
+    </div>
+
+    <div style="height: 5px; width: 100px;"></div>
+    
+    <!-- Display Kullback-Leibler divergence -->
+    <div style="justify-content: center; margin-right: 5px; display: flex; align-items: center;">
+      <span style="font-size: 20px; margin-right: 5px; font-weight: bold;">KL Divergence:</span>
+      <span id="klValue" style="font-size: 20px; margin-left: 2px; font-weight: bold;">0</span>
+      <span style="font-size: 20px; margin-left: 5px; font-weight:bold;">bits of info required for sync</span>
+    </div>
+
+    <div style="margin-bottom: -100px; width: 100px;"></div>
+
+    <!-- JavaScript to draw chart and update values -->
+    <script>
+       // Get chart and slider elements
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var mean1Slider = document.getElementById('mean1Slider');
+      var stddev1Slider = document.getElementById('stddev1Slider');
+      var mean1Value = document.getElementById('mean1Value');
+      var stddev1Value = document.getElementById('stddev1Value');
+      var mean2Slider = document.getElementById('mean2Slider');
+      var stddev2Slider = document.getElementById('stddev2Slider');
+      var mean2Value = document.getElementById('mean2Value');
+      var stddev2Value = document.getElementById('stddev2Value');
+      var klValue = document.getElementById('klValue');
+
+      // Function to generate data for normal distribution
+      function generateData(mean, stddev) {
+        var data = [];
+        for (var x = -10; x <= 10; x += 0.1) {
+          var y = (1 / (stddev * Math.sqrt(2 * Math.PI))) * Math.exp(-((x - mean) ** 2) / (2 * stddev ** 2));
+          data.push({x: x, y: y});
+        }
+        return data;
+      }
+
+      // Function to calculate Kullback-Leibler divergence
+      function kullbackLeiblerDivergence(mean1, stddev1, mean2, stddev2) {
+        var kl = 0;
+        for (var x = -10; x <= 10; x += 0.1) {
+          var p = (1 / (stddev1 * Math.sqrt(2 * Math.PI))) * Math.exp(-((x - mean1) ** 2) / (2 * stddev1 ** 2));
+          var q = (1 / (stddev2 * Math.sqrt(2 * Math.PI))) * Math.exp(-((x - mean2) ** 2) / (2 * stddev2 ** 2));
+          if (p > 0 && q > 0) {
+            kl += p * Math.log(p / q);
+          }
+        }
+        return kl;
+      }
+
+       // Initialize chart
+      var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [
+            {
+              label: 'Dark',
+              data: generateData(mean1Slider.value, stddev1Slider.value),
+              fill: true,
+	  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+	  borderWidth: 0,
+              pointRadius: 0, // Remove points from curve
+              lineTension: 0, // Make curve smooth
+            },
+            {
+              label: 'Fair',
+              data: generateData(mean2Slider.value, stddev2Slider.value),
+              fill: true,
+              backgroundColor: 'rgba(230, 230, 230, 0.5)',
+	  borderWidth: 0,
+              pointRadius: 0, // Remove points from curve
+              lineTension: 0, // Make curve smooth
+            },
+          ]
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              type: 'linear',
+              position: 'bottom'
+            }]
+          }
+        }
+      });
+
+        // Update chart when sliders are moved
+        mean1Slider.oninput = function() {
+        mean1Value.textContent = this.value;
+        chart.data.datasets[0].data = generateData(mean1Slider.value, stddev1Slider.value);
+        chart.update();
+        klValue.textContent = kullbackLeiblerDivergence(mean1Slider.value, stddev1Slider.value, mean2Slider.value, stddev2Slider.value).toFixed(2);
+      }
+      stddev1Slider.oninput = function() {
+        stddev1Value.textContent = this.value;
+        chart.data.datasets[0].data = generateData(mean1Slider.value, stddev1Slider.value);
+        chart.update();
+        klValue.textContent = kullbackLeiblerDivergence(mean1Slider.value, stddev1Slider.value, mean2Slider.value, stddev2Slider.value).toFixed(2);
+      }
+        mean2Slider.oninput = function() {
+        mean2Value.textContent = this.value;
+        chart.data.datasets[1].data = generateData(mean2Slider.value, stddev2Slider.value);
+        chart.update();
+        klValue.textContent = kullbackLeiblerDivergence(mean1Slider.value, stddev1Slider.value, mean2Slider.value, stddev2Slider.value).toFixed(2);
+      }
+      stddev2Slider.oninput = function() {
+        stddev2Value.textContent = this.value;
+        chart.data.datasets[1].data = generateData(mean2Slider.value, stddev2Slider.value);
+        chart.update();
+        klValue.textContent = kullbackLeiblerDivergence(mean1Slider.value, stddev1Slider.value, mean2Slider.value, stddev2Slider.value).toFixed(2);
+      }
+
+      // Display initial values of sliders and KD
+      mean1Value.textContent = mean1Slider.value;
+      stddev1Value.textContent = stddev1Slider.value;
+      mean2Value.textContent = mean2Slider.value;
+      stddev2Value.textContent = stddev2Slider.value;
+      klValue.textContent = kullbackLeiblerDivergence(mean1Slider.value, stddev1Slider.value, mean2Slider.value, stddev2Slider.value).toFixed(2);
+    </script>
+  </body>
+</html>
